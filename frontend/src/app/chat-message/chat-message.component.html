@@ -1,0 +1,12 @@
+<div class="bubble" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
+  <p class="bubble-text">{{ message.text }}</p>
+
+  <div class="chart-container" *ngIf="message.chart">
+    <canvas
+      baseChart
+      [type]="chartJsType"
+      [data]="chartData"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+</div>

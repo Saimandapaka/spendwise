@@ -1,0 +1,45 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Budgets</h1>
+    <p>Set a monthly limit per category and see how you're tracking, live.</p>
+  </header>
+
+  <div class="error-banner" *ngIf="errorText">{{ errorText }}</div>
+  <div class="loading" *ngIf="loading">Loading…</div>
+
+  <div class="budget-card" *ngFor="let b of budgets" [class]="'status-' + b.status">
+    <div class="budget-top">
+      <strong>{{ b.categoryName }}</strong>
+      <span class="budget-numbers">{{ formatMoney(b.spentThisMonth) }} / {{ formatMoney(b.monthlyLimit) }}</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="b.percentUsed > 100 ? 100 : b.percentUsed"></div>
+    </div>
+    <div class="budget-bottom">
+      <span class="status-label">{{ b.percentUsed }}% used
+        <ng-container [ngSwitch]="b.status">
+          <span *ngSwitchCase="'over'">— over budget</span>
+          <span *ngSwitchCase="'warning'">— getting close</span>
+        </ng-container>
+      </span>
+      <button class="link" (click)="editExisting(b)">Edit</button>
+      <button class="link" (click)="deleteBudget(b)">Remove</button>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && !budgets.length">
+    No budgets set yet — add one below.
+  </div>
+
+  <section class="section">
+    <h2>Set a budget</h2>
+    <div class="budget-form">
+      <select [(ngModel)]="formCategoryId">
+        <option [ngValue]="null">Choose category…</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <input type="number" placeholder="Monthly limit (₹)" [(ngModel)]="formLimit" min="0" />
+      <button (click)="saveBudget()">Save</button>
+    </div>
+  </section>
+</div>

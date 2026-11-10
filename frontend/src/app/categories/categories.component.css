@@ -1,0 +1,150 @@
+.page {
+  padding: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.page-header h1 { margin: 0; font-size: 22px; color: #12261d; }
+.page-header p { margin: 4px 0 20px; font-size: 13px; color: #5b6d62; }
+
+.error-banner {
+  background: #fbe9e7;
+  color: #b3261e;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.status-banner {
+  background: #eaf2ec;
+  color: #1b4332;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.loading { color: #8b978d; font-size: 13px; padding: 12px 0; }
+
+.section {
+  margin-bottom: 28px;
+  background: #fff;
+  border: 1px solid #dfe4da;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.section h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #12261d;
+}
+
+.hint {
+  font-size: 12px;
+  color: #5b6d62;
+  margin: -6px 0 12px;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eef0e9;
+  gap: 12px;
+}
+
+.review-item:last-child { border-bottom: none; }
+
+.review-info { display: flex; flex-direction: column; font-size: 13px; }
+.review-amount { color: #5b6d62; font-size: 12px; }
+
+.review-item select {
+  border: 1px solid #dfe4da;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.cat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.cat-table th {
+  text-align: left;
+  color: #5b6d62;
+  font-weight: 600;
+  border-bottom: 1px solid #dfe4da;
+  padding: 8px;
+}
+
+.cat-table td {
+  padding: 8px;
+  border-bottom: 1px solid #eef0e9;
+}
+
+.cat-table input {
+  border: 1px solid #1b4332;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.system-tag {
+  font-size: 10px;
+  color: #8b978d;
+  margin-left: 6px;
+}
+
+.review-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #e0a458;
+  color: #fff;
+  font-size: 10px;
+}
+
+.actions { text-align: right; }
+
+.link {
+  border: none;
+  background: none;
+  color: #1b4332;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  text-decoration: underline;
+}
+
+.merge-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.merge-form select {
+  border: 1px solid #dfe4da;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.merge-form span { font-size: 13px; color: #5b6d62; }
+
+.merge-form button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #1b4332;
+  color: #f4f5f0;
+}

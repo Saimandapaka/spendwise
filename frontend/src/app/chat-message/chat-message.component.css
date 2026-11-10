@@ -1,0 +1,32 @@
+.bubble {
+  max-width: 320px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.bubble.user {
+  background: #1b4332;
+  color: #f4f5f0;
+  margin-left: auto;
+}
+
+.bubble.assistant {
+  background: #ffffff;
+  color: #1f2a24;
+  border: 1px solid #dfe4da;
+  margin-right: auto;
+}
+
+.bubble-text {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.chart-container {
+  margin-top: 10px;
+  height: 220px;
+  width: 280px;
+}

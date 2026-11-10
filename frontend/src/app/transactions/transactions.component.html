@@ -1,0 +1,117 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Transactions</h1>
+    <p>Everything you've logged, filterable by category, date, or search.</p>
+  </header>
+
+  <div class="import-section">
+    <button class="import-toggle" (click)="showImportPanel = !showImportPanel">
+      {{ showImportPanel ? '▾' : '▸' }} Import from file
+    </button>
+
+    <div class="import-panel" *ngIf="showImportPanel">
+      <p class="hint">
+        Upload a CSV or Excel (.xlsx) file — a Date column and either an
+        Amount column or separate Debit/Credit columns are required.
+        Description and Category columns are optional; rows without a
+        matching category are flagged for review, same as chat entries.
+      </p>
+      <input type="file" accept=".csv,.xlsx,.xls" (change)="onFileSelected($event)" [disabled]="importing" />
+      <span class="importing-label" *ngIf="importing">Importing…</span>
+
+      <div class="import-result" *ngIf="importSummary">
+        <strong>{{ importSummary.imported }} of {{ importSummary.totalRows }} rows imported</strong>
+        <span *ngIf="importSummary.needsReview"> — {{ importSummary.needsReview }} need review</span>
+        <div class="import-errors" *ngIf="importSummary.errors.length">
+          <p>{{ importSummary.errors.length }} row(s) skipped:</p>
+          <ul>
+            <li *ngFor="let e of importSummary.errors.slice(0, 10)">{{ e }}</li>
+          </ul>
+          <p *ngIf="importSummary.errors.length > 10">…and {{ importSummary.errors.length - 10 }} more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <select [(ngModel)]="selectedCategoryId" (change)="load()">
+      <option [ngValue]="null">All categories</option>
+      <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+    </select>
+
+    <input type="date" [(ngModel)]="startDate" (change)="load()" />
+    <input type="date" [(ngModel)]="endDate" (change)="load()" />
+
+    <input
+      type="text"
+      placeholder="Search description…"
+      [(ngModel)]="search"
+      (keyup.enter)="load()"
+    />
+    <button (click)="load()">Search</button>
+    <button class="secondary" (click)="clearFilters()">Clear</button>
+  </div>
+
+  <div class="error-banner" *ngIf="errorText">{{ errorText }}</div>
+  <div class="status-banner" *ngIf="statusText">{{ statusText }}</div>
+  <div class="loading" *ngIf="loading">Loading…</div>
+
+  <table class="txn-table" *ngIf="!loading && transactions.length">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th class="amount-col">Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let t of transactions">
+        <!-- normal row -->
+        <tr *ngIf="editingId !== t.id" [class.needs-review-row]="t.needsReview">
+          <td>{{ t.transactionDate }}</td>
+          <td>
+            {{ t.description }}
+            <span class="review-chip" *ngIf="t.needsReview">needs review</span>
+          </td>
+          <td>{{ t.categoryName || '—' }}</td>
+          <td class="amount-col" [class.credit]="t.direction === 'credit'">
+            {{ t.direction === 'credit' ? '+' : '-' }}{{ formatMoney(t.amount) }}
+          </td>
+          <td class="actions">
+            <button class="link" (click)="startEdit(t)">Edit</button>
+            <button class="link danger" (click)="deleteTransaction(t)">Delete</button>
+          </td>
+        </tr>
+
+        <!-- inline edit row -->
+        <tr *ngIf="editingId === t.id" class="edit-row">
+          <td><input type="date" [(ngModel)]="editDate" /></td>
+          <td><input type="text" [(ngModel)]="editDescription" placeholder="Description" /></td>
+          <td>
+            <select [(ngModel)]="editCategoryId">
+              <option [ngValue]="null">Uncategorized</option>
+              <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+            </select>
+          </td>
+          <td class="amount-col">
+            <select [(ngModel)]="editDirection" class="direction-select">
+              <option value="debit">-</option>
+              <option value="credit">+</option>
+            </select>
+            <input type="number" [(ngModel)]="editAmount" min="0" class="amount-input" />
+          </td>
+          <td class="actions">
+            <button class="link" (click)="saveEdit(t)">Save</button>
+            <button class="link" (click)="cancelEdit()">Cancel</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div class="empty-state" *ngIf="!loading && !transactions.length && !errorText">
+    No transactions match these filters.
+  </div>
+</div>

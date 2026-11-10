@@ -1,0 +1,188 @@
+.page {
+  padding: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.page-header h1 { margin: 0; font-size: 22px; color: #12261d; }
+.page-header p { margin: 4px 0 20px; font-size: 13px; color: #5b6d62; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filters select,
+.filters input {
+  border: 1px solid #dfe4da;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.filters button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #1b4332;
+  color: #f4f5f0;
+}
+
+.filters button.secondary {
+  background: #ecefe7;
+  color: #1f2a24;
+}
+
+.error-banner {
+  background: #fbe9e7;
+  color: #b3261e;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.loading, .empty-state {
+  color: #8b978d;
+  font-size: 13px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.txn-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.txn-table th {
+  text-align: left;
+  color: #5b6d62;
+  font-weight: 600;
+  border-bottom: 1px solid #dfe4da;
+  padding: 8px;
+}
+
+.txn-table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #eef0e9;
+}
+
+.txn-table .amount-col { text-align: right; color: #c0392b; }
+.txn-table .amount-col.credit { color: #2e7d4f; }
+
+.needs-review-row { background: #fbf0dd; }
+
+.review-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #e0a458;
+  color: #fff;
+  font-size: 10px;
+}
+
+.status-banner {
+  background: #eaf2ec;
+  color: #1b4332;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.actions { text-align: right; white-space: nowrap; }
+
+.link {
+  border: none;
+  background: none;
+  color: #1b4332;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  text-decoration: underline;
+}
+
+.link.danger { color: #c0392b; }
+
+.edit-row td {
+  background: #f7f8f4;
+  padding: 8px;
+}
+
+.edit-row input,
+.edit-row select {
+  border: 1px solid #dfe4da;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-row .amount-col {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.direction-select { width: 50px !important; flex: none; }
+.amount-input { flex: 1; }
+
+.import-section {
+  margin-bottom: 16px;
+}
+
+.import-toggle {
+  border: 1px solid #dfe4da;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #1b4332;
+  cursor: pointer;
+}
+
+.import-panel {
+  margin-top: 10px;
+  background: #fff;
+  border: 1px solid #dfe4da;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.import-panel .hint {
+  font-size: 12px;
+  color: #5b6d62;
+  margin: 0 0 10px;
+}
+
+.importing-label {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #8b978d;
+}
+
+.import-result {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eef0e9;
+  font-size: 13px;
+}
+
+.import-errors {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #b3261e;
+}
+
+.import-errors ul {
+  margin: 4px 0;
+  padding-left: 18px;
+}

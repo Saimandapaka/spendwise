@@ -1,0 +1,88 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Categories</h1>
+    <p>Rename, merge, or fix transactions that need a category.</p>
+  </header>
+
+  <div class="error-banner" *ngIf="errorText">{{ errorText }}</div>
+  <div class="status-banner" *ngIf="statusText">{{ statusText }}</div>
+  <div class="loading" *ngIf="loading">Loading…</div>
+
+  <!-- Needs review -->
+  <section *ngIf="needsReviewItems.length" class="section">
+    <h2>Needs review ({{ needsReviewItems.length }})</h2>
+    <div class="review-item" *ngFor="let item of needsReviewItems">
+      <div class="review-info">
+        <strong>{{ item.description || 'Untitled' }}</strong>
+        <span class="review-amount">₹{{ item.amount }}</span>
+      </div>
+      <select #catSelect (change)="fixReviewItem(item, +catSelect.value)">
+        <option value="">Set category…</option>
+        <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Category list -->
+  <section class="section" *ngIf="!loading">
+    <h2>All categories</h2>
+    <table class="cat-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Transactions</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categories">
+          <td>
+            <ng-container *ngIf="editingCategoryId !== c.id">
+              {{ c.name }}
+              <span class="system-tag" *ngIf="c.isSystem">shared</span>
+            </ng-container>
+            <input
+              *ngIf="editingCategoryId === c.id"
+              type="text"
+              [(ngModel)]="editingName"
+              (keyup.enter)="saveRename(c)"
+            />
+          </td>
+          <td>{{ c.type }}</td>
+          <td>
+            {{ c.transactionCount }}
+            <span class="review-chip" *ngIf="c.needsReviewCount">{{ c.needsReviewCount }} to review</span>
+          </td>
+          <td class="actions">
+            <ng-container *ngIf="editingCategoryId !== c.id">
+              <button class="link" (click)="startRename(c)">Rename</button>
+            </ng-container>
+            <ng-container *ngIf="editingCategoryId === c.id">
+              <button class="link" (click)="saveRename(c)">Save</button>
+              <button class="link" (click)="cancelRename()">Cancel</button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Merge -->
+  <section class="section">
+    <h2>Merge duplicate categories</h2>
+    <p class="hint">Every transaction in the first category moves into the second, then the first is deleted.</p>
+    <div class="merge-form">
+      <select [(ngModel)]="mergeFromId">
+        <option [ngValue]="null">Merge this…</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <span>into</span>
+      <select [(ngModel)]="mergeToId">
+        <option [ngValue]="null">…into this</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <button (click)="performMerge()">Merge</button>
+    </div>
+  </section>
+</div>

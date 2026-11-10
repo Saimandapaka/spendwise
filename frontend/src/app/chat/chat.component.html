@@ -1,0 +1,23 @@
+<div class="chat-page">
+  <header class="chat-header">
+    <h1>SpendWise</h1>
+    <p>Ask about your spending, or just tell it what you spent.</p>
+  </header>
+
+  <div class="message-list">
+    <app-chat-message *ngFor="let m of messages" [message]="m"></app-chat-message>
+
+    <div class="bubble assistant typing" *ngIf="isSending">Thinking…</div>
+    <div class="error-banner" *ngIf="errorText">{{ errorText }}</div>
+  </div>
+
+  <div class="input-bar">
+    <textarea
+      [(ngModel)]="draft"
+      (keydown)="onKeydown($event)"
+      placeholder="Type an expense or ask a question…"
+      rows="1">
+    </textarea>
+    <button (click)="send()" [disabled]="isSending || !draft.trim()">Send</button>
+  </div>
+</div>

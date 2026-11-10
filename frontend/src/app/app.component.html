@@ -1,0 +1,15 @@
+<div class="shell">
+  <nav class="tabs">
+    <button [class.active]="activeTab === 'chat'" (click)="setTab('chat')">Chat</button>
+    <button [class.active]="activeTab === 'transactions'" (click)="setTab('transactions')">Transactions</button>
+    <button [class.active]="activeTab === 'categories'" (click)="setTab('categories')">Categories</button>
+    <button [class.active]="activeTab === 'budgets'" (click)="setTab('budgets')">Budgets</button>
+  </nav>
+
+  <main>
+    <app-chat *ngIf="activeTab === 'chat'"></app-chat>
+    <app-transactions *ngIf="activeTab === 'transactions'"></app-transactions>
+    <app-categories *ngIf="activeTab === 'categories'"></app-categories>
+    <app-budgets *ngIf="activeTab === 'budgets'"></app-budgets>
+  </main>
+</div>
